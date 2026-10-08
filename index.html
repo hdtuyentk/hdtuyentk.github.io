@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- SỬA: tên của bạn -->
+  <title>Twenty Nine</title>
+  <meta name="description" content="Project manager at a mobile game studio who builds small tools for release work.">
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233355D6'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23F2B531'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;800&display=swap&subset=vietnamese"
+    rel="stylesheet">
+  <style>
+    :root {
+      --paper: #F2F4F8;
+      --ink: #16203A;
+      --muted: #5A6480;
+      --rule: #D3D8E4;
+      --accent: #3355D6;
+      --signal: #E3A21A;
+      color-scheme: light;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --paper: #10162A;
+        --ink: #E7EBF5;
+        --muted: #98A2BC;
+        --rule: #28304A;
+        --accent: #94AEFF;
+        --signal: #F2B531;
+        color-scheme: dark;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --paper: #10162A;
+      --ink: #E7EBF5;
+      --muted: #98A2BC;
+      --rule: #28304A;
+      --accent: #94AEFF;
+      --signal: #F2B531;
+      color-scheme: dark;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Be Vietnam Pro", system-ui, sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.2em;
+    }
+
+    a:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .page {
+      max-width: 60rem;
+      margin: 0 auto;
+      padding: clamp(3rem, 9vw, 7rem) 1rem 4rem;
+    }
+
+    @media (min-width: 720px) {
+      .page {
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+      }
+    }
+
+    /* Tên lớn ở đầu trang: điểm nhấn duy nhất của thiết kế */
+    .name {
+      margin: 0 0 clamp(2rem, 5vw, 3.5rem);
+      font-size: clamp(3.25rem, 13vw, 9rem);
+      font-weight: 800;
+      line-height: 0.92;
+      letter-spacing: -0.045em;
+    }
+
+    .name span {
+      display: block;
+    }
+
+    /* Lưới hai cột: nhãn bên trái, nội dung bên phải */
+    .row {
+      display: grid;
+      gap: 0.5rem;
+      padding: 2rem 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    @media (min-width: 720px) {
+      .row {
+        grid-template-columns: 10rem minmax(0, 40rem);
+        gap: 2rem;
+      }
+    }
+
+    .row:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .label {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .lede {
+      margin: 0 0 1.25rem;
+      font-size: clamp(1.25rem, 2.6vw, 1.5rem);
+      font-weight: 500;
+      line-height: 1.45;
+      letter-spacing: -0.01em;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    p {
+      margin: 0 0 1rem;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Dự án */
+    .project+.project {
+      margin-top: 2.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px dashed var(--rule);
+    }
+
+    .project-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-title {
+      margin: 0;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .project-year {
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 0.9375rem;
+      color: var(--muted);
+    }
+
+    .status::before {
+      content: "";
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: var(--signal);
+    }
+
+    .change {
+      display: grid;
+      grid-template-columns: 4rem minmax(0, 1fr);
+      gap: 0.5rem 1rem;
+      margin: 0 0 1rem;
+    }
+
+    .change dt {
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .change dd {
+      margin: 0;
+    }
+
+    .stack {
+      margin: 0;
+      font-size: 0.9375rem;
+      color: var(--muted);
+    }
+
+    .tools {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      columns: 2;
+      column-gap: 2rem;
+    }
+
+    @media (min-width: 720px) {
+      .tools {
+        columns: 3;
+      }
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.9375rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <!-- SỬA: tên của bạn, tách làm 2 dòng -->
+    <h1 class="name"><span>Tên</span><span>Của Bạn</span></h1>
+
+    <section class="row" aria-label="About">
+      <p class="label">About</p>
+      <div>
+        <p class="lede">I manage SDK and monetization updates for a set of mobile games, and I build small tools that
+          take the busywork out of shipping them.</p>
+        <!-- SỬA: link GitHub và email của bạn -->
+        <ul class="links">
+          <li><a href="https://github.com/ten-github-cua-ban">GitHub</a></li>
+          <li><a href="mailto:email-cua-ban@example.com">Email</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="row" aria-labelledby="now">
+      <h2 class="label" id="now">Now</h2>
+      <div>
+        <p>Project manager at a mobile game studio in Vietnam. Most of my week goes into planning SDK updates across
+          Android and iOS builds, tracking them through store release, and reporting back to the teams who asked for
+          them.</p>
+        <p>When the same manual step shows up every week, I turn it into a tool.</p>
+      </div>
+    </section>
+
+    <section class="row" aria-labelledby="projects">
+      <h2 class="label" id="projects">Projects</h2>
+      <div>
+
+        <article class="project">
+          <div class="project-head">
+            <h3 class="project-title">SDK Tracker</h3>
+            <span class="project-year">2026</span>
+          </div>
+          <div class="status">Live since October 2026</div>
+          <dl class="change">
+            <dt>Before</dt>
+            <dd>SDK and monetization tasks for every game lived in one large Google Sheet, and the changelog was
+              rewritten by hand for each release.</dd>
+            <dt>After</dt>
+            <dd>A web app that groups tasks per game and platform into releases, tracks publish dates and rollout, and
+              produces the changelog from the same data.</dd>
+          </dl>
+          <p class="stack">Next.js, Prisma, Turso, Vercel. Internal tool, so there is no public link.</p>
+        </article>
+
+        <article class="project">
+          <div class="project-head">
+            <h3 class="project-title">Request portal</h3>
+            <span class="project-year">2026</span>
+          </div>
+          <div class="status">Being set up</div>
+          <dl class="change">
+            <dt>Before</dt>
+            <dd>Update requests from marketing teams arrived through group chats and spreadsheets, and every status
+              update was a manual reply.</dd>
+            <dt>After</dt>
+            <dd>One ClickUp form for all requests. Each requester signs in with their work account and sees the status
+              of their own requests only.</dd>
+          </dl>
+          <p class="stack">ClickUp Forms, ClickUp API, Google Apps Script. Internal tool, so there is no public link.
+          </p>
+        </article>
+
+        <article class="project">
+          <div class="project-head">
+            <h3 class="project-title">This site</h3>
+            <span class="project-year">2026</span>
+          </div>
+          <p>A single HTML file with no build step, hosted on GitHub Pages.</p>
+          <!-- SỬA: link tới repo chứa trang này -->
+          <p class="stack"><a href="https://github.com/ten-github-cua-ban/ten-github-cua-ban.github.io">Source code</a>
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="row" aria-labelledby="tools">
+      <h2 class="label" id="tools">Tools I use</h2>
+      <ul class="tools">
+        <li>TypeScript</li>
+        <li>Next.js</li>
+        <li>Prisma</li>
+        <li>SQLite and Turso</li>
+        <li>Vercel</li>
+        <li>Google Apps Script</li>
+        <li>ClickUp API</li>
+        <li>Google Sheets</li>
+        <li>Git and GitHub</li>
+      </ul>
+    </section>
+
+    <section class="row" aria-labelledby="contact">
+      <h2 class="label" id="contact">Contact</h2>
+      <!-- SỬA: email của bạn -->
+      <p>The fastest way to reach me is <a href="mailto:email-cua-ban@example.com">email-cua-ban@example.com</a>.</p>
+    </section>
+
+    <footer>
+      <!-- SỬA: tên của bạn -->
+      <p>Tên Của Bạn, 2026.</p>
+    </footer>
+
+  </main>
+</body>
+
+</html>
